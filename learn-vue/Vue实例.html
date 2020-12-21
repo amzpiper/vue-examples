@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue实例</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+        <p :a="a">{{a}}</p>
+    </div>
+  </body>
+  <script>
+    //#实例
+    var data = { a: 1 };
+    var vm = new Vue({
+      el: "#app",
+      data: data,
+    });
+
+    //#数据与方法
+    console.log("vm.a==data.a:" + vm.a == data.a);
+    vm.a = 2;
+    console.log(data.a);
+    console.log(vm.$data === data);
+    console.log(vm.$el === document.getElementById("app"));
+
+    // 这个回调将在 `vm.a` 改变后调用
+    vm.$watch("a", function (newValue, oldValue) {
+    });
+
+    //#实例生命周期钩子
+    var life = new Vue({
+        el:"",
+        data:{
+            a:1
+        },
+        beforeCreate() {
+            console.log("beforeCreate")
+        },
+        created:function() {
+            console.log("created")
+        },
+        beforeMount:function() {
+            console.log("beforeMount")
+        },
+        mounted:function() {
+            console.log("mounted")
+        },
+        beforeUpdate:function() {
+            console.log("beforeUpdate")
+        },
+        updated:function() {
+            console.log("updated")
+        },
+        beforeDestroy:function() {
+            console.log("beforeDestroy")
+        },
+        destroyed:function() {
+            console.log("destroyed")
+        },
+    })
+  </script>
+</html>

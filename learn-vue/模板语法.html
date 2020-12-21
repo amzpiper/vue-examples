@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue实例</title>
+    <style>
+      .active {
+        color: red;
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h4>#文本</h4>
+      <span>{{msg}}</span>
+      <span v-once>{{msg2}}</span>
+      <span v-html="msg3"></span>
+      <button v-bind:disabled="isButtonDisabled">按钮</button>
+      <h4>使用 JavaScript 表达式</h4>
+      <button v-bind:disabled="isButtonDisabled ? true : false">按钮</button>
+      <h4>动态参数</h4>
+      <a :[attributeName]="value">链接</a>
+      <button @click.prevent="click">事件</button>
+      <div v-bind:class="{ active: isActive }">div</div>
+      <div v-bind:class="classObject">div</div>
+      <div v-bind:class="[activeClass,errorClass]">div</div>
+      <div v-bind:style="{display:['-webkit-box','-ms-flexbox','flex']}">div</div>
+    </div>
+  </body>
+  <script>
+    var vm = new Vue({
+      el: "#app",
+      data: {
+        msg: "普通插值",
+        msg2: "一次性插值",
+        msg3: "<font style='color:red'>输出html格式</font>",
+        isButtonDisabled: true,
+        attributename: "href",
+        value: "#",
+        isActive: true,
+        classObject: {
+          active: false
+        },
+        activeClass:"active",
+        errorClass:"active",
+        activeColor:"red",
+        fontSize:"28"
+      },
+      methods: {
+        click: function () {
+          confirm(this.value);
+        },
+      },
+      computed: {
+        reversedAttributename: function () {
+          return this.msg.split("").reverse().join("");
+        },
+        setvalue: {
+          get: function () {
+            return this.attributename + this.value;
+          },
+          set: function (newValue) {
+            console.log("newValue:" + newValue);
+          },
+        },
+      },
+      watch: {
+        attributename: function () {
+          this.value = "##";
+        },
+      },
+    });
+  </script>
+</html>
