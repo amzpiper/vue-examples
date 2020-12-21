@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组件参数校验</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+
+    <div id="root">
+        <child content="abc" @click.native="hea"></child>
+        <!-- <child></child> -->
+    </div>
+    <script>
+        Vue.component("child", {
+            // 限定父子间传递的类型
+            props: {
+                content: [Number, String, Object]
+                    // content: {
+                    // type: String,
+                    // required: true,
+                    // default: "abc",
+                    // 自定义校验
+                    //     validator: function(value) {
+                    //         return (value.length > 5)
+                    //     }
+                    // }
+            },
+            // props: ['content'],
+            template: "<div>{{content}}</div>",
+        })
+        var vm = new Vue({
+            el: "#root",
+            methods: {
+                hea() {
+                    alert("123")
+                }
+            }
+        })
+    </script>
+
+</body>
+
+</html>

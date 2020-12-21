@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+
+    <form id="root">
+        {{value}}
+        <br>
+        <input type="text" v-model="value">
+        <br>
+        <textarea v-model="value"></textarea>
+        <br>
+        <input type="checkbox" v-model="value" />
+        <br>
+        <input type="radio" value="test" v-model="value">
+        <br>
+        <select v-model="value">
+            <option selected disabled>----请选择----</option>
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+        </select>
+        <select v-model="value">
+            <option selected disabled>----请选择----</option>
+            <option value="1">A</option>
+            <option value="2">B</option>
+            <option value="3">C</option>
+        </select>
+        <input type="text" v-model.lazy.number.trim="value" placeholder="失焦时出发-提高性能-转化数字">{{value}}
+    </form>
+    <script>
+        var app = new Vue({
+            el: "#root ",
+            data: {
+                value: ""
+            },
+            watch: {
+                value: function() {
+                    console.log(typeof this.value)
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

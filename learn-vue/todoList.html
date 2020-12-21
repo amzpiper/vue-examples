@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        .activated {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+        <input type="text" v-model="inputValue">
+        <p>inputValue:{{inputValue}}</p>
+        <p v-text="inputValue"></p>
+        <p v-html="inputValue"></p>
+        <p>fullName:{{fullName}}</p>
+        <button v-on:click="handleBtnClick">提交</button>
+        <ul>
+            <!-- <li v-for="item in list">{{item}}</li> -->
+            <!-- 使用组件，父组件向子组件传值：bind传值 v-bind: = :-->
+            <todo-item v-bind:content="item" v-bind:index="index" v-for="(item,index) of list" :key="item.id" v-on:delete="handleItemDelete">
+
+            </todo-item>
+        </ul>
+
+        <!-- <div @click="divClick" :class="{activated:isActivated}">Hello World</div> -->
+        <div @click="divClick" :class="[activated]">点击</div>
+        <div :style="[styleObj,{fontSize:'20px'}]" @click="styleClick">styel</div>
+
+        <div v-if="isActivated">if性能低</div>
+        <div v-else-if="'a'==='a'">elseif</div>
+        <div v-else>else性能低</div>
+        <div v-show="isActivated">show性能高</div>
+
+        <div v-if="isActivated">
+            <input type="text" key="a" @keydown.tab.enter.delete.esc @keydown.ctrl.alt.shift.meta @click.right>
+        </div>
+        <div v-else>
+            <input type="text" key="b">
+        </div>
+
+        <form action="" @click.prevent>
+            <input type="submit">
+        </form>
+
+    </div>
+
+
+    <script>
+        // 全局组件
+        Vue.component("TodoItem", {
+            props: ['content'],
+            template: "<li>{{content}}-2--{index}</li>"
+        })
+
+        // 局部组件
+        var TodoItem = {
+            props: ['content', 'index'],
+            template: "<li v-on:click='handleItemClick'>{{content}}---{{index}}</li>",
+            methods: {
+                handleItemClick: function() {
+                    // 子组件向父组件传值:把值传给父组件删除使用$.emit()向外出发事件,父组件监听子组件
+                    this.$emit("delete", this.index)
+                }
+            }
+        }
+
+        var app = new Vue({
+            el: "#app",
+            // 没有template，会把el当作模板
+            template: "",
+            // 生命周期
+            //监听事件
+            beforeCreate() {
+                console.log("b")
+            },
+            created: function() {
+                console.log("c")
+            },
+            // 模板和数据挂在时
+            beforeMount() {
+                console.log(this.$el)
+                console.log("mou")
+            },
+            mounted() {
+                console.log(this.$el)
+                console.log('md')
+            },
+            beforeDestroy() {
+                console.log("bd")
+            },
+            destroy() {
+                console.log("des")
+            },
+            beforeUpdate() {
+                console.log("bu")
+            },
+            updated() {
+                console.log("ud")
+            },
+            // 注册局部组件
+            components: {
+                TodoItem: TodoItem
+            },
+            data: {
+                list: [],
+                inputValue: "",
+                name: "ab",
+                isActivated: false,
+                activated: "",
+                styleObj: {
+                    color: "red"
+                }
+            },
+            computed: {
+                fullName: {
+                    get: function() {
+                        return this.name + "ab"
+                    },
+                    set(value) {
+
+                        console.log(value)
+                    }
+                }
+            },
+            // 类似computed，类似有缓存，优先级computed
+            // watch: {
+            //     name: function() {
+            //         this.fullName = this.name + "ab"
+            //     }
+            // },
+            methods: {
+                handleBtnClick: function() {
+                    this.list.push(this.inputValue)
+                    this.inputValue = ""
+                },
+                handleItemDelete: function(index) {
+                    this.list.splice(index, 1)
+                },
+                divClick() {
+                    this.isActivated = !this.isActivated
+                    this.activated = this.activated === "activated" ? "" : "activated"
+                },
+                styleClick(e) {
+                    e.preventDefault()
+                    this.styleObj.color = this.styleObj.color === "red" ? "" : "red"
+                }
+            }
+        })
+    </script>
+
+</body>
+
+</html>

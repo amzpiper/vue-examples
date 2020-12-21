@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>css+js动画</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.5.0/velocity.min.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <transition mode="out-in" :duration="{enter:1000,leave:1000}" @before-enter="handleBefore" @enter="handleEnter" @after-enter="handleAfterEnter" name="fade" enter-active-class="animated swing" leave-active-class="animated shake" appear appear-active-class="animated shake">
+            <component :is="show"></component>
+            <!-- <child v-if="show"> -->
+            <!-- child
+            </child>
+            <child-one>
+                childone
+            </child-one> -->
+        </transition>
+        <button @click="handleClick">切换</button>
+    </div>
+    <script>
+        Vue.component("child", {
+            template: "<div>child</div>"
+        })
+        Vue.component("childOne", {
+            template: "<div>childone</div>"
+        })
+        var vm = new Vue({
+            el: '#root',
+            data: {
+                show: "child"
+            },
+            methods: {
+                handleClick() {
+                    console.log(this.show)
+                    this.show = this.show === "child" ? "child-one" : "child"
+                },
+                handleBefore(el) {
+                    el.style.color = "red"
+                    console.log("Before")
+                },
+                handleEnter(el, done) {
+                    console.log("Enter")
+                    done()
+                },
+                handleAfterEnter(el) {
+                    console.log("AfterEnter")
+                    el.style.color = "red"
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

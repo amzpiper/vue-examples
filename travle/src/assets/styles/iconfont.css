@@ -1,0 +1,33 @@
+@font-face {font-family: "iconfont";
+  src: url('./iconfont/iconfont.eot?t=1600828389739'); /* IE9 */
+  src: url('./iconfont/iconfont.eot?t=1600828389739#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAAO4AAsAAAAAB/wAAANpAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCDMgqDBIJbATYCJAMUCwwABCAFhG0HXhv9BsgusG3Yk4BVGCHEanZduQY+olE8/Lv2eV+S+YvgtsSq7FgSCEkEkoSv6qkiYZD8oq6eSZ2pB2I9IhgkxyH5ZD0QFhB3nGlqpgJPndvF04BX7FotVpDuHZHRNDyazUZ2/NIFLODyyUs9y6PzLy5N04pIXTuLS6vF0imhTABDFSgWK6V8rcL/IC/qP4xd0BJPE2g1SQKztVUNHcBWYU4KxH5Z4oBtRq80ZIZmoVGxsojHKs3pTnqPR8Hvx4SF0UxSZea8TTsrRVAybIbrTDXxUATTWcHWkbEAUIijlfb9LKL4AhZa1f6WVgJaNUvSVN1wOB+u65pEfCBlq/UPj5BkhWgw09vBSpQoDBsHIRhGhMRwjpAZroUfprgCrbDkLsAzrJ4x5TckIbqjY1p7byOfcb05+1s9fxftdmPys3zyesient7YvnVu8ezNreune7tO3r3u2eFpvU/Snmb58TN3bvn0d56IPAFQ3TvduHeu3/RmP+7k+xX/fJodL0xmQJqmuPmz75mKtxMsFXZ0qh1dOYqX0+dTHc6p/RA827HUbOfRh0MXv6Df49CeHzm097H4y//A1uL3/ld//j3sBnih5+Y/RNf45NUfj/ped/sa18jVvf9d9GIx37+/rze3OB7XFSe938R/PPkMnGN+6+XzdShJ2GB+C/VZvjPi6vkO1u32NslvPRXqT3EaQC2faaU+38ognTMfIEs/72/sOMU9H3bB/81tBfzrv/8KimoFMv6AQmfBrxJ0rCiayDRURSl1+IqjsjKll9S6Vvwgd6/P0ygHOqcTmg0kkDQZgqzZDHTBL4BKm8XQ0GwFtJqven2bPpSFKC2YZxVA6PYIkk7vIOv2Fl3wn6Ay6C80dEeGVjuC7dhmVuyxtxRxDImQn4SyQIzYNjH7MLMNSaN6jqZFAa0LUVUOwdSklHyqGhkRnWKOOialMYYhpsQAq8B5SK8nUKFEiwSWpGFMyUtOxlVvlCQQA7C3BoVwGEQE8SZBMgFhhL3ajH3h59sgklF6HNpQVmXvglAquXMoVZKUDuhqubFT2a08RDVGkoZhMAijCAOoCgxD9PQISKkepoUImCSaAVFFnmSrGu4qT1peaXjHbdDK3LmKFDlKVNHQeVzmjIKGGKUJ2dEl2t1EIJEh9fb4UUUqtaUBAAAAAA==') format('woff2'),
+  url('./iconfont/iconfont.woff?t=1600828389739') format('woff'),
+  url('./iconfont/iconfont.ttf?t=1600828389739') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+  url('./iconfont/iconfont.svg?t=1600828389739#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icontianchongxing-:before {
+  content: "\e635";
+}
+
+.iconicon-test:before {
+  content: "\e63c";
+}
+
+.iconicon-test1:before {
+  content: "\e658";
+}
+
+.iconicon-test2:before {
+  content: "\e65c";
+}
+

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>插槽slot(父组件向子组件传递DOM结构)</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+
+    <div id="root">
+        <child>
+            <h1 slot="header">header</h1>
+            <h1 slot="footer">footer</h1>
+        </child>
+    </div>
+
+    <script>
+        Vue.component('child', {
+            template: '<div><p>hello</p><slot name="header">header</slot><slot name="footer">footer</slot></div>'
+        })
+
+        var vm = new Vue({
+            el: "#root"
+        })
+    </script>
+
+</body>
+
+</html>
