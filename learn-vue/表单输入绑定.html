@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue实例</title>
+    <style>
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+        单选框
+        <input type="checkbox" value="1" v-model="checked" true-value="yes" false-value="no">
+        <p>{{checked}}</p>
+        多选框
+        <input type="checkbox" value="1" v-model="checkList">
+        <input type="checkbox" value="2" v-model="checkList">
+        <input type="checkbox" value="3" v-model="checkList">
+        <input type="checkbox" value="4" v-model="checkList">
+        <p>{{checkList}}</p>
+        单选按钮
+        <input type="radio" value="1" v-model="picked">
+        <input type="radio" value="2" v-model="picked">
+        <p>{{picked}}</p>
+        选择框
+        <select v-model="selected" multiple>
+            <option value="请选择" disabled>请选择</option>
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+        </select>
+        <p>已选择{{selected}}</p>
+        lazy
+        <input v-model.lazy.trim="msg" type="number">
+        <p>{{msg}}</p>
+    </div>
+</body>
+<script>
+    var vm = new Vue({
+        el:"#app",
+        data:{
+            checked:'yes',
+            checkList:[],
+            picked:'1',
+            selected:[],
+            msg:123
+        }
+    })
+</script>
+</html>
