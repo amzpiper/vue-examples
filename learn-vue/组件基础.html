@@ -8,15 +8,6 @@
     </style>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <style>
-        #app{
-            background-color: #f5f5f5;
-            display: flex;
-            flex-flow: column;
-        }
-        .post{
-            width: 200;
-            height: 200;
-        }
     </style>
   </head>
   <body>
@@ -25,15 +16,16 @@
         <div :style="{fontSize: postFontSize + 'em'}">
             <blog v-for="post in posts" :key="post.id" :post="post" v-on:enlarge-text="postFontSize += $event"></blog>
         </div>
-
         <custom-input v-model="searchText"></custom-input>
 
         <alert-box>Some</alert-box>
 
-        <div>
+        <h3>切换不同的组件</h3>
+        <div style="background-color: red;">
             <input type="radio" value="blog" v-model="choseCompnet">
             <input type="radio" value="custom-input" v-model="choseCompnet">
-            <input type="radio" value="ert-box" v-model="choseCompnet">
+            <input type="radio" value="alert-box" v-model="choseCompnet">
+            <br>
             <component v-bind:is="choseCompnet" v-for="post in posts" :key="post.id" :post="post"></component>
         </div>
     </div>
@@ -53,7 +45,6 @@
         props:['post'],
         template:'<div class="post"><h3>{{ post.title }}</h3><div v-html="post.content"></div><button v-on:click="$emit(\'enlarge-text\',0.1)">Enlarge text</button></div>'
     })
-    
 
     //在组件上使用 v-model:问题
     Vue.component('custom-input', {
@@ -72,12 +63,41 @@
     // </alert-box>
     //插槽：在想往子组件插入Something bad happened的文职添加slot标签即可
     Vue.component('alert-box',{
+        //
+        inheritAttrs:false,
+        props:{
+            title:String,
+            list:{
+                type:Array,
+                required:true,
+                default:[1,2,3]
+            },
+            author:{
+                type:Object,
+                required:true,
+                default:function(){
+                    return {
+                        message:""
+                    }
+                }
+            },
+            callback:{
+                validator:function(value){
+                    return ['success','info','error'].indexOf(value) !== -1
+                }
+            },
+        },
         template:`
             <div>
                 <strong>Error!</strong>
                 <slot></slot>
             </div>
-        `
+        `,
+        computed:{
+            nowtitle:function(){
+                return this.title
+            }
+        }
     })
 
     var vm = new Vue({
