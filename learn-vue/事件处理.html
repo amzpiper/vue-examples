@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue实例</title>
+    <style>
+      .active {
+        color: red;
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+        <button @click="clickDOM($event)">处理原生DOM事件</button>
+        <a href="#" @click.stop="">阻止时间继续传播</a>
+        <form action="#" @submit.prevent="s">
+            <input type="text" name="user">
+            <button>提交表单不重载界面</button>
+        </form>
+        <div @scroll.passive="alert(1)">滚动,提升移动端性能</div>
+        <input type="text" @keyup.enter.space.up.meta="onEnter">
+        <input type="text" @keyup.ctrl.67="onEnter">
+    </div>
+  </body>
+  <script>
+      var vm = new Vue({
+          el:"#app",
+          methods: {
+            clickDOM(event){
+                event.preventDefault();
+                event.stopPropagation();
+            },
+            onEnter(){
+                alert(1)
+            }
+          },
+      })
+  </script>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue实例</title>
+    <style>
+      .active {
+        color: red;
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <ul>
+        <li v-for="n in evenNumbers">{{n}}</li>
+      </ul>
+
+      <ul v-for="set in numbers2">
+        <li v-for="s in even(set)">{{s}}</li>
+      </ul>
+
+      <ul>
+        <li v-for="todo in todos" v-if="!todo.isComplete">{{todo.text}}</li>
+      </ul>
+
+      <ul v-if="todos.length">
+        <li v-for="todo in todos">{{todo.text}}</li>
+      </ul>
+    </div>
+
+    <h2>Todo</h2>
+    <div id="todo-list">
+      <form v-on:submit.prevent="addNewTodo">
+        <label for="new-todo">Add a todo</label>
+        <input
+          type="text"
+          v-model="newTodoText"
+          placeholder="E.g."
+          id="new-todo"
+        />
+        <button>添加</button>
+      </form>
+      <ul>
+        <li is="list-item" v-for="(todo, index) in todoList" :key="index" :title="todo.text" v-on:remove="removeTodo(index,1)"></li>
+      </ul>
+    </div>
+  </body>
+  <script>
+    var vm = new Vue({
+      el: "#app",
+      data: {
+        numbers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
+        numbers2: [
+          [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
+          [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
+        ],
+        todos: [
+          {
+            id: 1,
+            isComplete: true,
+            text: "任务1",
+          },
+          {
+            id: 2,
+            isComplete: true,
+            text: "任务2",
+          },
+          {
+            id: 3,
+            isComplete: false,
+            text: "任务3",
+          },
+        ],
+      },
+      methods: {
+        even: function (numbers) {
+          return numbers.filter(function (number) {
+            return number % 2 == 0;
+          });
+        },
+      },
+      computed: {
+        evenNumbers: function () {
+          return this.numbers.filter(function (number) {
+            return number % 2 == 0;
+          });
+        },
+      },
+    });
+
+    // TODO
+    Vue.component("list-item", {
+      props: ['title'],
+      template: '<li>{{title}} <button @click="$emit(\'remove\')">删除</button> </li>',
+    });
+    var todo_list = new Vue({
+      el: "#todo-list",
+      data: {
+        newTodoId: 1,
+        newTodoText: "",
+        todoList: [
+          // {
+          //     id:1,
+          //     isDo:null,
+          //     text:"Todo"
+          // }
+        ],
+      },
+      methods: {
+        addNewTodo: function () {
+          this.todoList.push({
+            id:this.newTodoId,
+            isDo: false,
+            text: this.newTodoText,
+          });
+          console.log("this.newTodoId:"+this.newTodoId)
+          this.newTodoId++
+        },
+        removeTodo: function (index, len) {
+            this.todoList.splice(index,len)
+            this.newTodoId--
+        },
+      },
+    });
+  </script>
+</html>
