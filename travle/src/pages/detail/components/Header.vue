@@ -13,40 +13,42 @@
 </template>
 
 <script>
-import { onMounted, onUnmounted, reactive, ref } from 'vue'
 
 export default {
   name: 'DetailHeader',
   props: {
   },
-  setup () {
-      const showAbs = ref(true)
-      const opacityStyle = reactive({
+  data () {
+    return {
+      showAbs: true,
+      opacityStyle: {
         opacity: 0
-      })
-
-      function headelScroll () {
-        // 兼容性
-        const top = document.documentElement.scrollTop || document.body.scrollTop || window.pageYOffset
-        if (top > 50) {
-          let opacity = top / 140
-          opacity = opacity > 1 ? 1 : opacity
-          opacityStyle.opacity = opacity
-          showAbs.value = false
-        } else {
-          showAbs.value = true
-        }
       }
-
-      onMounted( () => {
-        window.addEventListener('scroll', headelScroll)
-      })
-
-      onUnmounted( () => {
-        window.removeEventListener('scroll', headelScroll)
-      })
-
-      return { showAbs, opacityStyle, headelScroll }
+    }
+  },
+  mounted () {
+    window.addEventListener('scroll', this.headelScroll)
+  },
+  destroyed () {
+    window.removeEventListener('scroll', this.headelScroll)
+  },
+  methods: {
+    headelScroll () {
+      console.log('scroll')
+      // 兼容性
+      const top = document.documentElement.scrollTop || document.body.scrollTop || window.pageYOffset
+      if (top > 50) {
+        let opacity = top / 140
+        opacity = opacity > 1 ? 1 : opacity
+        this.opacityStyle = {
+          opacity
+        }
+        this.showAbs = false
+        console.log(opacity)
+      } else {
+        this.showAbs = true
+      }
+    }
   }
 }
 </script>

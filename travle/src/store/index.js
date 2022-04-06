@@ -1,4 +1,7 @@
+import Vue from 'vue'
 import Vuex from 'vuex'
+
+Vue.use(Vuex)
 
 let defaultCity = '北京'
 try {
@@ -6,8 +9,7 @@ try {
     defaultCity = localStorage.city
   }
 } catch (error) {}
-
-export default Vuex.createStore({
+export default new Vuex.Store({
   state: {
     city: defaultCity
   },

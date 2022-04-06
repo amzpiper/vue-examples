@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <keep-alive exclude="Detail">
+      <!-- 显示当前路由所对应的内容 -->
       <router-view/>
     </keep-alive>
   </div>
@@ -12,5 +13,5 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style>
 </style>

@@ -18,6 +18,16 @@ export default {
   name: 'DetailList',
   props: {
     list: Array
+  },
+  data () {
+    return {
+    }
+  },
+  activated () {
+  },
+  deactivated () {
+  },
+  methods: {
   }
 }
 </script>

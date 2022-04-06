@@ -5,9 +5,7 @@
                 <div class="title border-topbottom">当前城市</div>
                 <div class="button-list">
                     <div class="button-wrapper">
-                        <div class="button">
-                          {{currentCity}}
-                        </div>
+                        <div class="button">{{this.currentCity}}</div>
                     </div>
                 </div>
             </div>
@@ -19,7 +17,7 @@
                     </div>
                 </div>
             </div>
-            <div class="area" v-for="(item,key) of cities" :key="key" :ref="elem => elems[key] = elem">
+            <div class="area" v-for="(item,key) of cities" :key="key" :ref="key">
                 <div class="title border-topbottom">{{key}}</div>
                 <div class="item-list">
                     <div class="item border-bottom" v-for="innerItem of item" :key="innerItem.id" @click="handleCityClick(innerItem.name)">
@@ -33,49 +31,46 @@
 
 <script>
 import BetterScroll from 'better-scroll'
-import { useStore } from 'vuex'
-import { useRouter } from 'vue-router'
-import { onMounted, ref, watch } from 'vue'
+import { mapMutations, mapState } from 'vuex'
 export default {
-  name: 'CityList',
   props: {
     cities: Object,
     hot: Array,
     letter: String
   },
-  setup (props) {
-    const store = useStore()
-    const router = useRouter()
-    const currentCity = store.state.city
-    const elems = ref({})
-    let scroll = null
-    const wrapper = ref(null)
-
-    function handleCityClick (city) {
-      store.commit('changeCity', city)
-      router.push('/')
+  name: 'CityList',
+  components: {
+  },
+  data () {
+    return {
     }
-
-    watch( () => props.letter, (letter, preLetter) => {
-      if (letter) {
-        const element = elems.value[letter]
-        scroll.scrollToElement(element)
+  },
+  mounted () {
+    this.scroll = new BetterScroll(this.$refs.wrapper, {
+      click: true
+    })
+  },
+  methods: {
+    handleCityClick (city) {
+    //   this.$store.dispatch('changeCity', city)
+      this.changeCity(city)
+      this.$router.push('/')
+    },
+    ...mapMutations(['changeCity'])
+  },
+  watch: {
+    letter () {
+      if (this.letter) {
+        const element = this.$refs[this.letter][0]
+        this.scroll.scrollToElement(element)
       }
+    }
+  },
+  computed: {
+    ...mapState({
+      currentCity: 'city'
     })
-
-    onMounted ( () => {
-      scroll = new BetterScroll(wrapper.value, {
-        click: true
-      })
-    })
-
-    return { currentCity, wrapper, elems, handleCityClick }
   }
-  // computed: {
-  //   ...mapState({
-  //     currentCity: 'city'
-  //   })
-  // }
 }
 </script>
 

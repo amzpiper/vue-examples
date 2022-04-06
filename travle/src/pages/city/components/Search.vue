@@ -18,60 +18,59 @@
 
 <script>
 import BetterScroll from 'better-scroll'
-import { useStore } from 'vuex'
-import { useRouter } from 'vue-router'
-import { computed, onMounted, ref, watch } from 'vue'
+import { mapMutations } from 'vuex'
 export default {
   name: 'CitySearch',
   props: {
     cities: Object
   },
-  setup (props) {
-      const store = useStore()
-      const router = useRouter()
-      const keyword = ref('')
-      const list = ref([])
-      const searchKeyword = ref(null)
-      let timer = null
-
-      const hasNoData = computed( () => {
-        !list.length
-      })
-
-      watch(keyword, (keyword, preKeyword) => {
-        if (timer) {
-          clearTimeout(timer)
-          timer = null
-        }
-        if (!keyword) {
-          list.value = []
-          return
-        }
-        timer = setTimeout(() => {
-          const result = []
-          for (let i in props.cities) {
-            props.cities[i].forEach((value) => {
-              if (value.spell.indexOf(keyword) > -1 || value.name.indexOf(keyword) > -1) {
-                result.push(value)
-              }
-            })
-          }
-          list.value = result
-        }, 100)
-      })
-
-      onMounted( () => {
-        new BetterScroll(searchKeyword.value, {
-          click: true
-        })
-      })
-
-      function handleCityClick (city) {
-        store.commit('changeCity', city)
-        router.push('/')
+  components: {
+  },
+  data () {
+    return {
+      keyword: '',
+      list: [],
+      timer: null
+    }
+  },
+  computed: {
+    hasNoData () {
+      return !this.list.length
+    }
+  },
+  watch: {
+    keyword () {
+      if (this.timer) {
+        clearTimeout(this.timer)
       }
-      
-      return { keyword, list, hasNoData, searchKeyword, handleCityClick }
+      if (!this.keyword) {
+        this.list = []
+        return
+      }
+      this.timer = setTimeout(() => {
+        const result = []
+        for (let i in this.cities) {
+          this.cities[i].forEach((value) => {
+            if (value.spell.indexOf(this.keyword) > -1 || value.name.indexOf(this.keyword) > -1) {
+              result.push(value)
+            }
+          })
+        }
+        this.list = result
+      }, 100)
+    }
+  },
+  mounted () {
+    this.scroll = new BetterScroll(this.$refs.searchKeyword, {
+      click: true
+    })
+  },
+  methods: {
+    handleCityClick (city) {
+      this.changeCity(city)
+      this.$router.push('/')
+    },
+    ...mapMutations(['changeCity'])
   }
 }
 </script>

@@ -4,11 +4,11 @@
             <img class="banner-img" :src="bannerImg" alt="">
             <div class="banner-info">
                 <div class="banner-title">
-                  {{sightName}}
+                  {{this.sightName}}
                 </div>
                 <div class="banner-number">
                     <span class="iconfont banner-icon">&#xe635;</span>
-                    {{gallaryImgs.lenght}}
+                    {{this.gallaryImgs.lenght}}
                 </div>
             </div>
         </div>
@@ -19,9 +19,8 @@
 </template>
 
 <script>
-import CommonGallary from '@/common/gallary/Gallary'
-import FadeAnimation from '@/common/fade/Fade'
-import { ref } from 'vue'
+import CommonGallary from 'common/gallary/Gallary'
+import FadeAnimation from 'common/fade/Fade'
 
 export default {
   name: 'DetailBanner',
@@ -34,15 +33,18 @@ export default {
     bannerImg: String,
     gallaryImgs: Array
   },
-  setup () {
-    let showGallary = ref(false)
-    function handleBnnerClick () {
-      showGallary.value = true
+  data () {
+    return {
+      showGallary: false
     }
-    function handleGallaryClose () {
-      showGallary.value = false
-    }    
-    return { showGallary, handleBnnerClick, handleGallaryClose }
+  },
+  methods: {
+    handleBnnerClick () {
+      this.showGallary = true
+    },
+    handleGallaryClose () {
+      this.showGallary = false
+    }
   }
 }
 </script>
@@ -65,7 +67,7 @@ export default {
             padding-bottom :.1rem
             line-height :.6rem
             color :#fff
-            background-image :linear-gradient(to top, rgba(0,0,0,0), rgba(0,0,0,0.8))
+            background-image :linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.8))
             .banner-title
                 flex :1
                 height :.4rem
